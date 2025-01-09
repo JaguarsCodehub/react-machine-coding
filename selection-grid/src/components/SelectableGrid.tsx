@@ -7,7 +7,7 @@ type Props = {
 
 const SelectableGrid = ({columns, rows}: Props) => {
     const [isMouseDown, setIsMouseDown] = useState(false);
-    const [selectedBoxes, setSelectedBoxes] = useState([]);
+    const [selectedBoxes, setSelectedBoxes] = useState<number[]>([]);
 
 
     const handleMouseDown = (boxNumber: number) => {
