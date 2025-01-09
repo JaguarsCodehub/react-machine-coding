@@ -1,19 +1,24 @@
 import { useState } from 'react';
-
+import './grid.css'
 type Props = {
     rows: number;
     columns: number;
 }
 
-const SelectableGrid = ({columns, rows}: Props) => {
+const SelectableGrid2 = ({rows, columns}: Props) => {
+
     const [isMouseDown, setIsMouseDown] = useState(false);
     const [selectedBoxes, setSelectedBoxes] = useState([]);
 
 
+
+    const handleMouseUp = () => {
+        setIsMouseDown(false);
+    };
     const handleMouseDown = (boxNumber: number) => {
         setIsMouseDown(true);
         setSelectedBoxes([boxNumber]);
-    }
+    };
     const handleMouseEnter = (boxNumber: number) => {
         if(isMouseDown) {
             const startBox = selectedBoxes[0];
@@ -31,7 +36,7 @@ const SelectableGrid = ({columns, rows}: Props) => {
             const minCol = Math.min(startColumn, endColumn);
             const maxCol = Math.max(startColumn, endColumn);
 
-            const selected = [];
+            const selected = [];            
             for (let row = minRow; row <= maxRow; row++) {
                 for (let col = minCol; col <= maxCol; col++) {
                     selected.push(row * columns + col + 1);
@@ -39,40 +44,28 @@ const SelectableGrid = ({columns, rows}: Props) => {
             }
 
             setSelectedBoxes(selected);
-            console.log(selected);
-
-
-
-            // if(startRow === endRow) {
-            //     for(let i = startColumn; i <= endColumn; i++) {
-            //         setSelectedBoxes([...selectedBoxes, i]);
-            //     }
-            // }
+            console.log(selected)
         }
-
-    }
-
-    const handleMouseUp = () => {
-        setIsMouseDown(false);
     };
 
-
   return (
-    <div onMouseUp={() => handleMouseUp()} className='grid' style={{ "--rows": rows, "--columns": columns}}>
-        {
-            [...Array(rows * columns).keys()].map((_, i) => (
-                <div 
-                    className={`box ${selectedBoxes.includes(i + 1) ? 'selected' : ''}`} 
-                    key={i}
-                    onMouseEnter={() => handleMouseEnter(i + 1)}
-                    onMouseDown={() => handleMouseDown(i + 1)}
-                >
-                    {i + 1}
-                </div>
-            ))
-        }
-    </div>
+    <>
+        <div className='grid' style={{ '--rows': rows, '--columns': columns }} onMouseUp={() => handleMouseUp()}>
+            {
+                [...Array(rows * columns)].map((_, i) => (
+                    <div 
+                        key={i} 
+                        className={`box ${selectedBoxes.includes(i + 1) ? 'selected' : ''}`}
+                        onMouseDown={() => handleMouseDown(i + 1)}
+                        onMouseEnter={() => handleMouseEnter(i + 1)}
+                    >
+                        {i + 1}
+                    </div>
+                ))
+            }
+        </div>
+    </>
   )
 }
 
-export default SelectableGrid
+export default SelectableGrid2

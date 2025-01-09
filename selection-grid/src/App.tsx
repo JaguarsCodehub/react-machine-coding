@@ -1,5 +1,5 @@
 import './App.css'
-import SelectableGrid from './components/SelectableGrid'
+import SelectableGrid2 from './components/SelectableGrid2'
 
 function App() {
 
@@ -8,7 +8,7 @@ function App() {
       <div>
         <h1>Drag and Select Grid</h1>
         <p>Grid with drag and select</p>
-        <SelectableGrid rows={15} columns={10}/>
+        <SelectableGrid2 rows={15} columns={10}/>
       </div>
     </>
   )
